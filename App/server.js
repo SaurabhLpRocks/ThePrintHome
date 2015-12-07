@@ -3,6 +3,7 @@
  */
 
 var express = require('express');
+var exphbs = require('express-handlebars');
 var fs = require('fs');
 var path = require('path');
 var join = require('path').join;
@@ -35,7 +36,9 @@ function connect () {
   mongoose.connect(config.db, options);
 }
 app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
+//app.set('view engine', 'ejs');
+app.engine('.hbs', exphbs({defaultLayout: 'single', extname: '.hbs'}));
+app.set('view engine', '.hbs');
 
 // Bootstrap passport config
 require('./config/passport')(passport);
